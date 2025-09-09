@@ -1,8 +1,17 @@
-
 ---
-import Header from '../components/Header.astro';
+import Header from "../components/Header.astro";
 import Home from "../components/pages/Home.astro";
+import Hero from "../components/test/Hero.astro";
+import Features from "../components/test/Features.astro";
 ---
+<!-- -&#45;&#45;-->
+<!--import Layout from '../layouts/Layout.astro';-->
+<!--import Home from "../components/pages/Home.astro";-->
+<!-- -&#45;&#45;-->
+
+<!--<Layout>-->
+<!--	<Home />-->
+<!--</Layout>-->
 
 <html lang="ko">
 <head>
@@ -24,38 +33,30 @@ import Home from "../components/pages/Home.astro";
             --btn-hover: #028484;
             --btn-text: #ffffff;
         }
-
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            font-family: sans-serif;
-            margin: 0;
-        }
-
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            text-align: center;
-            padding: 2rem;
-        }
+        body { background-color: var(--bg-color); color: var(--text-color); font-family: sans-serif; margin: 0; }
+        .container { max-width: 800px; margin: 0 auto; text-align: center; padding: 2rem; }
     </style>
 </head>
 <body>
 <Header />
 <main class="container">
-    <Home />
+    <Hero />
+    <Features />
 </main>
 
-<script>
-    const toggle = document.getElementById('theme-toggle');
-    const currentTheme = localStorage.getItem('theme') || 'light';
-    document.documentElement.setAttribute('data-theme', currentTheme);
+<script lang="ts">
+    const toggle = document.getElementById('theme-toggle') as HTMLButtonElement | null;
+    if (toggle) {
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', currentTheme);
 
-    toggle.addEventListener('click', () => {
-        const theme = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
-        document.documentElement.setAttribute('data-theme', theme);
-        localStorage.setItem('theme', theme);
-    });
+        toggle.addEventListener('click', () => {
+            const theme = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+        });
+    }
 </script>
 </body>
 </html>
+
