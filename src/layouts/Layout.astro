@@ -1,0 +1,24 @@
+---
+import BaseHead from "../components/BaseHead.astro";
+---
+<!doctype html>
+<html lang="ko">
+	<head>
+		<BaseHead />
+        <title>공돌이 2조</title>
+	</head>
+	<body>
+		<div class="container">
+            <slot />
+        </div>
+	</body>
+</html>
+
+<style>
+	html,
+	body {
+		margin: 0;
+		width: 100%;
+		height: 100%;
+	}
+</style>

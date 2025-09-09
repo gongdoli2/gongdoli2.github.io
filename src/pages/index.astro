@@ -1,0 +1,61 @@
+
+---
+import Header from '../components/Header.astro';
+import Home from "../components/pages/Home.astro";
+---
+
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>공돌이 2조</title>
+    <style>
+        :root {
+            --bg-color: #ffffff;
+            --text-color: #000000;
+            --btn-bg: #0ea5a4;
+            --btn-hover: #028484;
+            --btn-text: #ffffff;
+        }
+        [data-theme="dark"] {
+            --bg-color: #121212;
+            --text-color: #ffffff;
+            --btn-bg: #0ea5a4;
+            --btn-hover: #028484;
+            --btn-text: #ffffff;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: sans-serif;
+            margin: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            padding: 2rem;
+        }
+    </style>
+</head>
+<body>
+<Header />
+<main class="container">
+    <Home />
+</main>
+
+<script>
+    const toggle = document.getElementById('theme-toggle');
+    const currentTheme = localStorage.getItem('theme') || 'light';
+    document.documentElement.setAttribute('data-theme', currentTheme);
+
+    toggle.addEventListener('click', () => {
+        const theme = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+        document.documentElement.setAttribute('data-theme', theme);
+        localStorage.setItem('theme', theme);
+    });
+</script>
+</body>
+</html>
