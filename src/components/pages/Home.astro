@@ -1,69 +1,60 @@
 ---
 ---
-<header class="site-header">
-    <div class="wrap">
-        <a class="logo" href="/">
-            <img src="/assets/logo.svg" alt="logo" width="40" height="40" />
-            <span>공돌이 2조</span>
-        </a>
-        <nav>
-            <a href="#">홈</a>
-            <a href="#">프로젝트</a>
-            <a href="#">연락처</a>
-        </nav>
-    </div>
-</header>
-<div class="home">
-    <main class="container">
-        <section class="hero">
-            <h1>"aa"</h1>
-            <p>Astro로 만든 간단한 정적 웹 템플릿입니다. 필요하면 기능을 추가해드릴게요.</p>
-            <a class="btn" href="#">시작하기</a>
-        </section>
 
+<div>
 
-        <section class="features">
-            <h2>기능</h2>
-            <ul>
-                <li>빠른 정적 페이지</li>
-                <li>컴포넌트 분리 (Header, Layout 등)</li>
-                <li>간단한 스타일 적용</li>
-            </ul>
-        </section>
-    </main>
+    <nav class="home-nav">
+        <a href="#" class="logo">Portfolio.</a>
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Portfolio</a></li>
+            <li><a href="#">Service</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+    </nav>
+
 </div>
 
 <style>
-    .home {
-        text-align: center;
-        font-family: sans-serif;
-        padding: 2rem;
+    body {
+        background: #1f232d;
     }
 
-    .hero {
-        margin-bottom: 3rem;
-    }
-
-    .btn {
-        display: inline-block;
-        padding: 0.5rem 1rem;
-        background-color: #0ea5a4;
-        color: white;
+    a {
+        color: #fff;
         text-decoration: none;
-        border-radius: 0.5rem;
-        transition: background 0.3s;
     }
 
-    .btn:hover {
-        background-color: #028484;
+    .home-nav {
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+        padding: 25px 9%;
+        background: slateblue;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 100;
     }
 
-    .features ul {
+    .home-nav .logo {
+        font-size: 30px;
+        font-weight: 700;
+    }
+
+    .home-nav ul {
+        display: flex;
+    }
+
+    .home-nav ul li {
         list-style: none;
-        padding: 0;
+        margin-left: 35px;
     }
 
-    .features li {
-        margin-bottom: 0.5rem;
+    .home-nav ul li a {
+        font-size: 20px;
+        font-weight: 500;
     }
 </style>

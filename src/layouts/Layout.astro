@@ -1,17 +1,16 @@
 ---
-import BaseHead from "../components/BaseHead.astro";
 ---
 <!doctype html>
 <html lang="ko">
 	<head>
-		<BaseHead />
+        <meta charset="UTF-8" />
+        <link rel="icon" type="im age/svg+xml" href="/assets/logo.svg" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>공돌이 2조</title>
 	</head>
-	<body>
-		<div class="container">
-            <slot />
-        </div>
-	</body>
+    <body>
+        <slot />
+    </body>
 </html>
 
 <style>
