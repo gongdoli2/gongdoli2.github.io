@@ -1,0 +1,102 @@
+---
+---
+
+<div id="sidebar-page">
+    <div class="sidebar-content">
+        <h1>Sidebar Page</h1>
+
+        <!-- 사이드바 버튼들 -->
+        <div class="sidebar-buttons">
+            <button onclick="alert('버튼 1 클릭!')">버튼 1</button>
+            <button onclick="alert('버튼 2 클릭!')">버튼 2</button>
+            <button onclick="alert('버튼 3 클릭!')">버튼 3</button>
+        </div>
+
+        <button class="back-btn" id="backBtn">← 돌아가기</button>
+    </div>
+</div>
+
+<style>
+    #sidebar-page {
+        position: fixed;
+        top: 0;
+        left: -100%;
+        width: 100vw;
+        height: 100vh;
+        background: #1f232d;
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: left 0.5s ease;
+        z-index: 1000;
+    }
+
+    #sidebar-page.show { left: 0; }
+    #sidebar-page.hide { left: -100%; }
+
+    .sidebar-content { text-align: center; }
+
+    /* 사이드바 버튼 */
+    .sidebar-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        margin: 2rem 0;
+    }
+
+    .sidebar-buttons button {
+        background: #654DD8;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        padding: 0.8rem 1.2rem;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background 0.3s, transform 0.2s;
+    }
+
+    .sidebar-buttons button:hover {
+        background: #523ac0;
+        transform: scale(1.05);
+    }
+
+    /* 돌아가기 버튼 */
+    .back-btn {
+        margin-top: 1rem;
+        font-size: 1.2rem;
+        padding: 0.65rem 1.4rem;
+        background: #654DD8;
+        color: white;
+        border: none;
+        border-radius: 22px;
+        cursor: pointer;
+        transition: background 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
+        box-shadow: 0 4px 12px rgba(101, 77, 216, 0.35);
+    }
+
+    .back-btn:hover {
+        background: #523ac0;
+        transform: scale(1.06);
+        box-shadow: 0 6px 16px rgba(101, 77, 216, 0.5);
+    }
+
+</style>
+
+<script>
+    window.addEventListener("DOMContentLoaded", () => {
+        const page = document.getElementById("sidebar-page");
+        const backBtn = document.getElementById("backBtn");
+        if (!page || !backBtn) return;
+
+        requestAnimationFrame(() => page.classList.add("show")); // 입장 애니메이션
+
+        backBtn.addEventListener("click", () => {
+            page.classList.remove("show");
+            page.classList.add("hide"); // 퇴장 애니메이션
+            page.addEventListener("transitionend", () => {
+                window.location.href = "/";
+            }, { once: true });
+        });
+    });
+</script>
