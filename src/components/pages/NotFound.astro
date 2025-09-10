@@ -1,21 +1,108 @@
 ---
-import background from '../../public/background.svg';
 ---
+<div class="not-found">
+    <div class="loader"></div>
 
-<div class="notFound">
     <div class="content">
         <h1>404</h1>
-        <h1>Not Found</h1>
+        <h2>Page Not Found</h2>
+        <p>죄송합니다. 찾으시는 페이지가 존재하지 않습니다.</p>
+        <a href="/" class="home-btn">홈으로 돌아가기</a>
     </div>
 </div>
 
 <style>
-    .notfound {
-        margin: 7rem auto 0 auto;
-        padding: 2rem 1rem;
+    .not-found {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        height: 100vh;
+        background: #1f232d;
+        text-align: center;
+        color: white;
+        font-family: Arial, sans-serif;
+    }
+
+    .loader {
+        border: 6px solid rgba(255, 255, 255, 0.2);
+        border-top: 6px solid #654DD8;
+        border-radius: 50%;
+        width: 60px;
+        height: 60px;
+        animation: spin 0.8s linear infinite;
+        margin-bottom: 1rem;
+    }
+
+    @keyframes spin {
+        to {
+            transform: rotate(360deg);
+        }
     }
 
     .content {
-        font-size: 27px;
+        display: none;
+    }
+
+    .show .loader {
+        display: none;
+    }
+    .show .content {
+        display: block;
+        animation: fadeIn 0.5s ease;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .content h1 {
+        font-size: 5rem;
+        margin: 0;
+        color: #654DD8;
+    }
+
+    .content h2 {
+        font-size: 2rem;
+        margin: 1rem 0;
+    }
+
+    .content p {
+        font-size: 1.1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .home-btn {
+        display: inline-block;
+        background: #654DD8;
+        color: white;
+        padding: 0.8rem 1.5rem;
+        border-radius: 25px;
+        text-decoration: none;
+        font-size: 1rem;
+        transition: background 0.3s, transform 0.2s;
+    }
+
+    .home-btn:hover {
+        background: #523ac0;
+        transform: scale(1.05);
     }
 </style>
+
+<script>
+    window.addEventListener("DOMContentLoaded", () => {
+        const container = document.querySelector(".not-found");
+        if (container) {
+            setTimeout(() => {
+                container.classList.add("show");
+            }, 500);
+        }
+    });
+</script>
