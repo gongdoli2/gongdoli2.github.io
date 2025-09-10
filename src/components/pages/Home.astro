@@ -1,22 +1,26 @@
 ---
 ---
 
-<div>
-
-    <nav class="home-nav">
-        <a href="#" class="logo">Portfolio.</a>
-        <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Portfolio</a></li>
-            <li><a href="#">Service</a></li>
-            <li><a href="#">Contact</a></li>
-        </ul>
-    </nav>
-
-</div>
+<nav class="home-nav">
+    <a href="#" class="logo">Portfolio.</a>
+    <ul>
+        <li class="active"><a href="#">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Portfolio</a></li>
+        <li><a href="#">Service</a></li>
+        <li><a href="#">Contact</a></li>
+    </ul>
+</nav>
 
 <style>
+    @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
     body {
         background: #1f232d;
     }
@@ -32,7 +36,6 @@
         top: 0;
         width: 100%;
         padding: 25px 9%;
-        background: slateblue;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -56,5 +59,11 @@
     .home-nav ul li a {
         font-size: 20px;
         font-weight: 500;
+        transition: .5s;
+    }
+
+    .home-nav ul li:hover a,
+    .home-nav ul li.active a {
+        color: #7cf;
     }
 </style>
