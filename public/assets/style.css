@@ -1,0 +1,85 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Quicksand', sans-serif;
+}
+
+body {
+    background: #1f232d;
+    color: #fff;
+}
+
+/*!* 링크 스타일 *!*/
+/*a {*/
+/*    color: #fff;*/
+/*    text-decoration: none;*/
+/*}*/
+
+/*!* 네비게이션 바 *!*/
+/*.home-nav {*/
+/*    position: fixed;*/
+/*    left: 0;*/
+/*    top: 0;*/
+/*    width: 100%;*/
+/*    padding: 25px 9%;*/
+/*    display: flex;*/
+/*    justify-content: space-between;*/
+/*    align-items: center;*/
+/*    z-index: 100;*/
+/*    background: #1f232d;*/
+/*}*/
+
+/*.home-nav .logo {*/
+/*    font-size: 30px;*/
+/*    font-weight: 700;*/
+/*}*/
+
+/*!* 메뉴 리스트 *!*/
+/*.home-nav ul {*/
+/*    display: flex;*/
+/*}*/
+
+/*.home-nav ul li {*/
+/*    list-style: none;*/
+/*    margin-left: 35px;*/
+/*}*/
+
+/*.home-nav ul li a {*/
+/*    font-size: 20px;*/
+/*    font-weight: 500;*/
+/*    transition: 0.5s;*/
+/*}*/
+
+/*.home-nav ul li:hover a,*/
+/*.home-nav ul li.active a {*/
+/*    color: #7cf;*/
+/*}*/
+
+/* 반응형 (모바일) */
+@media (max-width: 768px) {
+    .home-nav ul {
+        flex-direction: column;
+        display: none;
+        width: 100%;
+        background: #1f232d;
+        position: absolute;
+        top: 100%;
+        left: 0;
+    }
+
+    .home-nav ul.show {
+        display: flex;
+    }
+
+    .menu-btn {
+        display: block;
+        background: none;
+        border: none;
+        color: #fff;
+        font-size: 24px;
+        cursor: pointer;
+    }
+}

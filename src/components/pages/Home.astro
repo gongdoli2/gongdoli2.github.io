@@ -1,69 +1,19 @@
 ---
+// Home.astro
 ---
+<div class="home-container">
+    <img src="/assets/logo.svg" alt="Logo" id="logo" />
+</div>
 
 <nav class="home-nav">
     <a href="#" class="logo">Portfolio.</a>
-    <ul>
+    <ul class="nav-links">
         <li class="active"><a href="#">Home</a></li>
         <li><a href="#">About</a></li>
         <li><a href="#">Portfolio</a></li>
         <li><a href="#">Service</a></li>
         <li><a href="#">Contact</a></li>
     </ul>
+    <button class="menu-btn">☰</button>
 </nav>
 
-<style>
-    @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
-
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
-
-    body {
-        background: #1f232d;
-    }
-
-    a {
-        color: #fff;
-        text-decoration: none;
-    }
-
-    .home-nav {
-        position: fixed;
-        left: 0;
-        top: 0;
-        width: 100%;
-        padding: 25px 9%;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        z-index: 100;
-    }
-
-    .home-nav .logo {
-        font-size: 30px;
-        font-weight: 700;
-    }
-
-    .home-nav ul {
-        display: flex;
-    }
-
-    .home-nav ul li {
-        list-style: none;
-        margin-left: 35px;
-    }
-
-    .home-nav ul li a {
-        font-size: 20px;
-        font-weight: 500;
-        transition: .5s;
-    }
-
-    .home-nav ul li:hover a,
-    .home-nav ul li.active a {
-        color: #7cf;
-    }
-</style>
