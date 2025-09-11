@@ -1,114 +1,104 @@
 ---
 ---
+
 <div class="not-found">
-    <div class="loader"></div>
+    <div class="icon">
+        <svg width="120" height="120" viewBox="0 0 24 24" fill="none" stroke="#654DD8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="8" x2="12" y2="12"></line>
+            <line x1="12" y1="16" x2="12" y2="16"></line>
+        </svg>
+    </div>
 
     <div class="content">
         <h1>404</h1>
         <h2>Page Not Found</h2>
         <p>죄송합니다. 찾으시는 페이지가 존재하지 않습니다.</p>
-        <a href="/" class="home-btn">홈으로 돌아가기</a>
+        <a href="/" class="home-btn button-common">홈으로 돌아가기</a>
     </div>
 </div>
 
 <style>
+
     .not-found {
+        min-height: calc(100vh - 50px);
         display: flex;
         justify-content: center;
         align-items: center;
         flex-direction: column;
         height: 100vh;
-        background: #1f232d;
+        background: linear-gradient(135deg, #1f232d, #2a2f3d);
         text-align: center;
         color: white;
-        font-family: Arial, sans-serif;
+        opacity: 0;
+        transform: translateY(-30px);
+        transition: all 1s ease;
     }
 
-    .loader {
-        border: 6px solid rgba(255, 255, 255, 0.2);
-        border-top: 6px solid #654DD8;
-        border-radius: 50%;
-        width: 60px;
-        height: 60px;
-        animation: spin 0.8s linear infinite;
-        margin-bottom: 1rem;
+    .not-found.show {
+        opacity: 1;
+        transform: translateY(0);
     }
 
-    @keyframes spin {
-        to {
-            transform: rotate(360deg);
-        }
+    .icon {
+        margin-bottom: 2rem;
+        animation: float 2s ease-in-out infinite;
     }
 
-    .content {
-        display: none;
-    }
-
-    .show .loader {
-        display: none;
-    }
-    .show .content {
-        display: block;
-        animation: fadeIn 0.5s ease;
-    }
-
-    @keyframes fadeIn {
-        from {
-            opacity: 0;
-            transform: translateY(10px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
+    @keyframes float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
     }
 
     .content h1 {
-        font-size: 5rem;
+        font-size: 4rem;
         margin: 0;
         color: #654DD8;
+        animation: pop 0.6s ease;
     }
 
     .content h2 {
         font-size: 2rem;
         margin: 1rem 0;
+        color: #fff;
+        opacity: 0;
+        animation: fadeInUp 0.6s ease forwards;
+        animation-delay: 0.3s;
     }
 
     .content p {
         font-size: 1.1rem;
         margin-bottom: 1.5rem;
+        opacity: 0;
+        animation: fadeInUp 0.6s ease forwards;
+        animation-delay: 0.5s;
     }
 
-    .home-btn {
-        display: inline-block;
-        margin-top: 1rem;
-        font-size: 1.2rem;
-        padding: 0.8rem 1.5rem;
-        background: #654DD8;
-        color: white;
-        border: none;
-        border-radius: 25px;
-        cursor: pointer;
-        transition: background 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
-        box-shadow: 0 4px 12px rgba(101, 77, 216, 0.35);
-        text-decoration: none;
+    @keyframes pop {
+        0% { transform: scale(0); opacity: 0; }
+        60% { transform: scale(1.2); opacity: 1; }
+        100% { transform: scale(1); }
     }
 
-    .home-btn:hover {
-        background: #523ac0;
-        transform: scale(1.06);
-        box-shadow: 0 6px 16px rgba(101, 77, 216, 0.5);
-        text-decoration: none;
+    @keyframes fadeInUp {
+        0% { opacity: 0; transform: translateY(20px); }
+        100% { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 768px) {
+        .content h1 { font-size: 4rem; }
+        .content h2 { font-size: 1.5rem; }
+        .content p { font-size: 1rem; }
     }
 </style>
 
 <script>
     window.addEventListener("DOMContentLoaded", () => {
-        const container = document.querySelector(".not-found");
-        if (container) {
+        const notFound = document.querySelector(".not-found");
+        if (notFound) {
             setTimeout(() => {
-                container.classList.add("show");
-            }, 500);
+                notFound.classList.add("show");
+            }, 200);
         }
     });
 </script>
