@@ -20,6 +20,11 @@ import SideBar from "../components/SideBar.astro";
         </div>
     </div>
 
+    <div class="info">
+        <h1>함께 배우며 성장하는 팀</h1>
+        <p>우리는 코딩과 협업을 즐기며, 서로에게 배우고 성장하는 <span class="highlight">gongdoli2</span>입니다.</p>
+    </div>
+
     <!-- 팀 섹션 -->
     <div class="team-section">
         <div class="team-card">
@@ -64,23 +69,44 @@ import SideBar from "../components/SideBar.astro";
         box-sizing: border-box;
     }
 
-    /* 로고 */
-    .logo-container {
-        width: 300px;
-        height: 300px;
-        background: linear-gradient(145deg, #2a2f3e, #1f232d);
-        border-radius: 20px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        box-shadow: 0 15px 25px rgba(101, 77, 216, 0.4);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    .info {
+        text-align: center;
+        margin: 2rem 0;
+        color: #ffffff;
     }
 
-    .logo-container:hover {
-        transform: scale(1.03);
-        box-shadow: 0 20px 30px rgba(101, 77, 216, 0.6);
+    .info h1 {
+        font-size: 2rem;
+        margin-bottom: 0.5rem;
     }
+
+    .info p {
+        font-size: 1rem;
+        color: #cfcfcf;
+    }
+
+    .highlight {
+        color: #654DD8;
+        font-weight: bold;
+    }
+
+    /* 로고 */
+    //.logo-container {
+    //    width: 300px;
+    //    height: 300px;
+    //    background: linear-gradient(145deg, #2a2f3e, #1f232d);
+    //    border-radius: 20px;
+    //    display: flex;
+    //    justify-content: center;
+    //    align-items: center;
+    //    box-shadow: 0 15px 25px rgba(101, 77, 216, 0.4);
+    //    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    //}
+    //
+    //.logo-container:hover {
+    //    transform: scale(1.03);
+    //    box-shadow: 0 20px 30px rgba(101, 77, 216, 0.6);
+    //}
 
     .img-box {
         position: relative;
