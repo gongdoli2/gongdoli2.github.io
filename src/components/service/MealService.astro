@@ -1,5 +1,5 @@
 ---
-import SideBar from "../layouts/SideBar.astro";
+import SideBar from "../../layouts/SideBar.astro";
 ---
 
 <SideBar/>
@@ -132,8 +132,8 @@ import SideBar from "../layouts/SideBar.astro";
 </style>
 
 <script>
-    import { loadMeal } from "../utils/mealApp.ts";
-    import { formatDate } from "../utils/dateUtils.ts";
+    import { loadMeal } from "../../utils/mealApp.ts";
+    import { formatDate } from "../../utils/dateUtils.ts";
 
     const mealDiv = document.getElementById("meal-box") as HTMLDivElement;
     const calDiv = document.getElementById("cal-box") as HTMLDivElement;
