@@ -356,7 +356,7 @@
         });
 
         window.addEventListener("scroll", () => {
-            const show = window.scrollY === 0;
+            const show = window.scrollY <= 50;
             menuBtn.style.opacity = show ? "1" : "0";
             menuBtn.style.pointerEvents = show ? "auto" : "none";
         });
