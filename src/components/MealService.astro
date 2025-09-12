@@ -9,9 +9,7 @@ import SideBar from "../layouts/SideBar.astro";
     <h2 class="now"></h2>
 
     <section class="meal-card">
-        <div id="meal" class="meal-container">
-            <div class="meal-box">급식을 불러오는 중...</div>
-        </div>
+        <div class="nutrition-box" id="meal-box">급식을 불러오는 중..</div>
 
         <div class="meal-buttons">
             <button data-meal="1">조식</button>
@@ -68,7 +66,7 @@ import SideBar from "../layouts/SideBar.astro";
     }
 
     /* 카드 내부 박스 */
-    .meal-box, .nutrition-box {
+    .nutrition-box {
         background: #33334d;
         border-radius: 1rem;
         padding: 1rem;
@@ -129,7 +127,7 @@ import SideBar from "../layouts/SideBar.astro";
 
     @media (max-width: 600px) {
         .meal-card, .cal-card, .nutrition-card { padding: 1.2rem; }
-        .meal-box, .nutrition-box { font-size: 0.9rem; padding: 0.6rem; }
+        .nutrition-box { font-size: 0.9rem; padding: 0.6rem; }
     }
 </style>
 
@@ -137,7 +135,7 @@ import SideBar from "../layouts/SideBar.astro";
     import { loadMeal } from "../utils/mealApp.ts";
     import { formatDate } from "../utils/dateUtils.ts";
 
-    const mealDiv = document.getElementById("meal") as HTMLDivElement;
+    const mealDiv = document.getElementById("meal-box") as HTMLDivElement;
     const calDiv = document.getElementById("cal-box") as HTMLDivElement;
     const nutDiv = document.getElementById("nut-box") as HTMLDivElement;
     const mealButtons = document.querySelectorAll<HTMLButtonElement>(".meal-buttons button");
@@ -184,9 +182,9 @@ import SideBar from "../layouts/SideBar.astro";
             return;
         }
 
-        mealDiv.innerHTML = `<div class="meal-box">${renderSection("급식", mealData.dishes)}</div>`;
-        calDiv.innerHTML = `<div class="meal-box">${renderSection("칼로리", mealData.cal)}</div>`;
-        nutDiv.innerHTML = `<div class="meal-box">${renderSection("영양정보", mealData.nutrition)}</div>`;
+        mealDiv.innerHTML = `<div class="meal-box">${ renderSection("급식", mealData.dishes) }</div>`;
+        calDiv.innerHTML = `<div class="meal-box">${ renderSection("칼로리", mealData.cal) }</div>`;
+        nutDiv.innerHTML = `<div class="meal-box">${ renderSection("영양정보", mealData.nutrition) }</div>`;
     }
 
     mealButtons.forEach(btn => {
