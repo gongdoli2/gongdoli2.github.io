@@ -10,7 +10,7 @@ import SideBar from "../layouts/SideBar.astro";
 
     <section class="meal-card">
         <div id="meal" class="meal-container">
-            <div class="meal-box">불러오는 중...</div>
+            <div class="meal-box">급식을 불러오는 중...</div>
         </div>
 
         <div class="meal-buttons">
@@ -21,11 +21,11 @@ import SideBar from "../layouts/SideBar.astro";
     </section>
 
     <section class="cal-card">
-        <div class="nutrition-box" id="cal-box">칼로리 불러오는 중...</div>
+        <div class="nutrition-box" id="cal-box">칼로리를 불러오는 중...</div>
     </section>
 
     <section class="nutrition-card">
-        <div class="nutrition-box" id="nut-box">영양 정보 불러오는 중...</div>
+        <div class="nutrition-box" id="nut-box">영양정보를 불러오는 중...</div>
     </section>
 </div>
 
@@ -142,41 +142,51 @@ import SideBar from "../layouts/SideBar.astro";
     const nutDiv = document.getElementById("nut-box") as HTMLDivElement;
     const mealButtons = document.querySelectorAll<HTMLButtonElement>(".meal-buttons button");
 
+    const messages = {
+        loading: {
+            meal: "급식을 불러오는 중...",
+            cal: "칼로리를 불러오는 중...",
+            nut: "영양정보를 불러오는 중..."
+        },
+        empty: {
+            meal: "<div class='meal-box'>오늘은 급식이 없습니다.</div>",
+            cal: "",
+            nut: ""
+        }
+    };
+
+    function setState(state: "loading" | "empty") {
+        mealDiv.innerHTML = messages[state].meal;
+        calDiv.innerHTML = messages[state].cal;
+        nutDiv.innerHTML = messages[state].nut;
+    }
+
+    function renderSection(title: string, content: string | string[]) {
+        const items = Array.isArray(content)
+            ? content.map(d => `<div class="section-item">${d}</div>`).join("")
+            : `<div class="section-item">${content}</div>`;
+
+        return `
+            <div>
+                <div class="highlight-title">${title}</div>
+                ${items}
+            </div>
+        `;
+    }
+
     async function renderMeal(mealType: string = "2") {
+        setState("loading");
+
         const mealData = await loadMeal(mealType);
 
-        const loadingText = {
-            meal: "급식 불러오는 중...",
-            cal: "칼로리 불러오는 중...",
-            nut: "영양 정보 불러오는 중..."
-        };
-
-        mealDiv.innerHTML = loadingText.meal;
-        calDiv.textContent = loadingText.cal;
-        nutDiv.textContent = loadingText.nut;
-
         if (!mealData || !mealData.dishes?.length) {
-            mealDiv.innerHTML = "<div class='meal-box'>급식이 없습니다.</div>";
-            calDiv.textContent = "";
-            nutDiv.textContent = "";
+            setState("empty");
             return;
         }
 
-        const renderSection = (title: string, content: string | string[]) => {
-            const items = Array.isArray(content)
-                ? content.map(d => `<div class="section-item">${d}</div>`).join("")
-                : `<div class="section-item">${content}</div>`;
-            return `<div>
-              <div class="highlight-title">${title}</div>
-              ${items}
-            </div>`;
-        };
-
         mealDiv.innerHTML = `<div class="meal-box">${renderSection("급식", mealData.dishes)}</div>`;
         calDiv.innerHTML = `<div class="meal-box">${renderSection("칼로리", mealData.cal)}</div>`;
-        nutDiv.innerHTML = mealData.nutrition?.length
-            ? `<div class="meal-box">${renderSection("영양정보", mealData.nutrition)}</div>`
-            : `<div class="meal-box">영양 정보 없음</div>`;
+        nutDiv.innerHTML = `<div class="meal-box">${renderSection("영양정보", mealData.nutrition)}</div>`;
     }
 
     mealButtons.forEach(btn => {
@@ -187,10 +197,12 @@ import SideBar from "../layouts/SideBar.astro";
         });
     });
 
-    window.addEventListener("DOMContentLoaded", () => renderMeal("2"));
+    window.addEventListener("DOMContentLoaded", () => {
+        renderMeal("2");
 
-    const nowElement = document.querySelector(".now");
-    if (nowElement) {
-        nowElement.textContent = formatDate(new Date());
-    }
+        const nowElement = document.querySelector(".now");
+        if (nowElement) {
+            nowElement.textContent = formatDate(new Date());
+        }
+    });
 </script>

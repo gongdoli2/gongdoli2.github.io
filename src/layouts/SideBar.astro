@@ -60,7 +60,7 @@ const { show } = Astro.props;
         font-size: 20px;
         cursor: pointer;
         z-index: 2000;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
         box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
     }
 
@@ -354,6 +354,12 @@ const { show } = Astro.props;
 
         sidebar.addEventListener("click", (e) => {
             if (e.target === sidebar) closeSidebar();
+        });
+
+        window.addEventListener("scroll", () => {
+            const show = window.scrollY === 0;
+            menuBtn.style.opacity = show ? "1" : "0";
+            menuBtn.style.pointerEvents = show ? "auto" : "none";
         });
     });
 </script>

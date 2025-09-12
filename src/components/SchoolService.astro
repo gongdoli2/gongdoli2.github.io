@@ -31,9 +31,19 @@ import SideBar from "../layouts/SideBar.astro";
     </section>
 </div>
 
-<style is:global>
-    .container { max-width:650px; margin:5rem auto; padding:0 1rem; font-family:'Segoe UI',sans-serif; }
-    .page-title { text-align:center; font-size:1.8rem; color:#c0aaff; margin-bottom:1rem; }
+<style>
+    .container {
+        max-width: 650px;
+        margin: 5rem auto;
+        padding: 0 1rem;
+    }
+
+    .page-title {
+        text-align: center;
+        font-size: 1.8rem;
+        color: #c0aaff;
+        margin-bottom: 1rem;
+    }
 
     /* 학교 카드 (급식 카드 스타일 적용) */
     .school-card {
@@ -71,9 +81,14 @@ import SideBar from "../layouts/SideBar.astro";
     #goToHomepage:hover { transform:translateY(-3px); box-shadow:0 8px 20px rgba(0,0,0,0.25); }
 
     /* 반응형 */
-    @media (max-width:600px){
-        .page-title{font-size:1.6rem;}
-        .info-box{font-size:0.95rem;padding:0.3rem 0.5rem;}
+    @media (max-width: 900px){
+        .page-title{
+            font-size: 1.6rem;
+        }
+        .info-box{
+            font-size: 0.95rem;
+            padding: 0.3rem 0.5rem;
+        }
     }
 </style>
 
