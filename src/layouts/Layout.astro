@@ -16,6 +16,10 @@ import "../styles/global.css";
     <slot />
 </body>
 
+<footer>
+    &copy; 2025 gongdoli2. All rights reserved.
+</footer>
+
 </html>
 
 <style>
@@ -25,13 +29,16 @@ import "../styles/global.css";
         height: 100%;
     }
 
-    .layout-wrapper {
-        display: flex;
-        flex-direction: column;
-        min-height: 100vh; /* 화면 전체 높이 */
-    }
-
-    .layout-wrapper > *:not(footer) {
-        flex: 1; /* 푸터를 제외한 나머지 공간 채움 */
+    footer {
+        text-align: center;
+        margin: 0;
+        color: #b8a7f5;
+        padding: 1rem 0;
+        font-size: 0.9rem;
+        letter-spacing: 0.05em;
+        border-top: 1px solid rgba(101, 77, 216, 0.35);
+        background: #1e1e2f;
+        box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.25);
+        font-weight: 500;
     }
 </style>

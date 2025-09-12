@@ -4,12 +4,12 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Quicksand', sans-serif;
 }
 
 body {
-    background: #1f232d;
-    color: #fff;
+    font-family: 'Quicksand', sans-serif;
+    background-color: #1e1e2f;
+    color: #ffffff;
 }
 
 .button-common {
@@ -17,7 +17,7 @@ body {
     margin-top: 1rem;
     font-size: 1.2rem;
     padding: 0.8rem 1.5rem;
-    background: #654DD8;
+    background: #3a2f5c;
     color: white;
     border: none;
     border-radius: 25px;
@@ -30,7 +30,7 @@ body {
 }
 
 .button-common:hover {
-    background: #523ac0;
+    background: #a291ff;
     transform: scale(1.06);
     box-shadow: 0 6px 16px rgba(101, 77, 216, 0.5);
     text-decoration: none;

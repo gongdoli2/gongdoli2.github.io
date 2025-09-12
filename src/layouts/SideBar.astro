@@ -1,0 +1,359 @@
+---
+const { show } = Astro.props;
+---
+
+<button class="menu-btn button-common" id="menuBtn">☰</button>
+
+<div id="sidebar-page" role="dialog" aria-modal="true" aria-labelledby="sidebarTitle">
+    <div class="sidebar-content">
+
+        <div class="sidebar-header">
+        </div>
+
+        <a href="/" class="sidebar-home">홈으로 돌아가기</a>
+
+        <div class="sidebar-section">
+            <h3 class="section-title">주요 메뉴</h3>
+            <div class="main-buttons">
+                <a href="/school" class="btn primary-btn">학교정보</a>
+                <a href="/meal" class="btn primary-btn">급식표</a>
+                <a href="/" class="btn primary-btn">시간표(예정)</a>
+            </div>
+        </div>
+
+        <div class="sidebar-section">
+            <h3 class="section-title">카테고리</h3>
+            <div class="category-grid">
+                <a href="/" class="btn category-btn"><span class="btn-icon">⚡</span>(예정)</a>
+                <a href="/" class="btn category-btn"><span class="btn-icon">🔥</span>(예정)</a>
+                <a href="/" class="btn category-btn"><span class="btn-icon">📦</span>(예정)</a>
+                <a href="/" class="btn category-btn"><span class="btn-icon">🎯</span>(예정)</a>
+            </div>
+            <a href="/" class="btn event-btn"><span class="btn-icon">📊</span>(예정)</a>
+        </div>
+
+    </div>
+</div>
+
+<style>
+    :root {
+        --primary-color: #6366f1;
+        --primary-hover: #4f46e5;
+        --secondary-color: #8b5cf6;
+        --accent-color: #06b6d4;
+        --sidebar-bg: #0f172a;
+        --sidebar-content-bg: #1e293b;
+        --text-primary: #f8fafc;
+        --text-secondary: #cbd5e1;
+        --border-color: #334155;
+        --shadow-color: rgba(0, 0, 0, 0.5);
+    }
+
+    /* 메뉴 버튼 */
+    .menu-btn {
+        position: fixed;
+        top: 24px;
+        left: 24px;
+        border: none;
+        border-radius: 12px;
+        padding: 14px 18px;
+        font-size: 20px;
+        cursor: pointer;
+        z-index: 2000;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
+
+    .menu-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 15px -3px rgba(0, 0, 0, 0.2);
+    }
+
+    #sidebar-page {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1500;
+        visibility: hidden;
+        transition: visibility 0.4s;
+    }
+    #sidebar-page.active {
+        visibility: visible;
+    }
+
+    #sidebar-page::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.6);
+        backdrop-filter: blur(5px);
+        opacity: 0;
+        transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    #sidebar-page.active::before {
+        opacity: 1;
+    }
+
+    .sidebar-content {
+        position: relative;
+        width: 90%;
+        max-width: 360px;
+        height: 100%;
+        background: var(--sidebar-bg);
+        overflow-y: auto;
+        box-shadow: 4px 0 20px var(--shadow-color);
+        transform: translateX(-100%);
+        transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        display: flex;
+        flex-direction: column;
+    }
+    #sidebar-page.active .sidebar-content {
+        transform: translateX(0);
+    }
+
+    .sidebar-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 50px 24px;
+        border-bottom: 1px solid var(--border-color);
+        flex-shrink: 0;
+    }
+    .sidebar-title {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: var(--text-primary);
+        margin: 0;
+    }
+    .close-btn {
+        background: none;
+        border: none;
+        color: var(--text-secondary);
+        font-size: 1.25rem;
+        cursor: pointer;
+        padding: 8px;
+        border-radius: 50%;
+        line-height: 1;
+        transition: color 0.2s, background-color 0.2s;
+    }
+    .close-btn:hover {
+        color: var(--text-primary);
+        background-color: var(--border-color);
+    }
+
+    .sidebar-home {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin: 24px;
+        padding: 16px 20px;
+        background: var(--accent-color);
+        color: var(--text-primary);
+        text-decoration: none;
+        border-radius: 12px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .sidebar-home:hover {
+        background: #0891b2;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .sidebar-section {
+        margin-bottom: 32px;
+        padding: 0 24px;
+    }
+
+    .section-title {
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: var(--text-secondary);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin: 0 0 16px;
+    }
+
+    /* 버튼 공통 스타일 */
+    .btn {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 12px 16px;
+        background: var(--sidebar-content-bg);
+        color: var(--text-primary);
+        text-decoration: none;
+        border-radius: 10px;
+        font-size: 0.95rem;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        border: 1px solid transparent;
+    }
+
+    .btn:hover {
+        background: var(--primary-color);
+        transform: translateX(4px);
+        border-color: var(--primary-hover);
+    }
+
+    .btn-icon {
+        font-size: 1.1rem;
+        opacity: 0.8;
+    }
+
+    /* 메인 버튼들 */
+    .main-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .primary-btn {
+        background: var(--primary-color);
+        font-weight: 600;
+        padding: 16px 20px;
+    }
+
+    .primary-btn:hover {
+        background: var(--primary-hover);
+        transform: translateX(6px);
+    }
+
+    /* 카테고리 그리드 */
+    .category-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+    }
+
+    .category-btn {
+        flex-direction: column;
+        gap: 8px;
+        padding: 16px 12px;
+        text-align: center;
+        background: var(--sidebar-content-bg);
+    }
+
+    .category-btn .btn-icon {
+        font-size: 1.5rem;
+    }
+
+    .category-btn:hover {
+        background: var(--secondary-color);
+        transform: translateY(-2px);
+    }
+
+    /* 세부 메뉴 */
+    .detail-menu {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .detail-btn {
+        background: var(--sidebar-content-bg);
+    }
+
+    .sub-menu {
+        display: flex;
+        gap: 8px;
+        margin-left: 24px;
+    }
+
+    .sub-btn {
+        flex: 1;
+        justify-content: center;
+        padding: 10px 12px;
+        font-size: 0.85rem;
+        background: var(--border-color);
+    }
+
+    .sub-btn:hover {
+        background: var(--primary-color);
+        transform: translateY(-2px);
+    }
+
+    /* 이벤트 버튼 */
+    .event-btn {
+        flex-direction: column;
+        margin-top: 10px;
+        gap: 8px;
+        padding: 16px 12px;
+        text-align: center;
+        background: var(--sidebar-content-bg);
+    }
+
+    .event-btn .btn-icon {
+        font-size: 1.5rem;
+    }
+
+    .event-btn:hover {
+        background: var(--secondary-color);
+        transform: translateY(-2px);
+    }
+
+    /* 스크롤바 스타일링 */
+    .sidebar-content::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    .sidebar-content::-webkit-scrollbar-track {
+        background: var(--sidebar-bg);
+    }
+
+    .sidebar-content::-webkit-scrollbar-thumb {
+        background: var(--border-color);
+        border-radius: 3px;
+    }
+
+    .sidebar-content::-webkit-scrollbar-thumb:hover {
+        background: var(--text-secondary);
+    }
+
+    /* 반응형 */
+    @media (min-width: 768px) {
+        .sidebar-content {
+            width: 360px;
+        }
+    }
+</style>
+
+<script>
+    window.addEventListener("DOMContentLoaded", () => {
+        const menuBtn = document.getElementById("menuBtn");
+        const sidebar = document.getElementById("sidebar-page");
+        const githubIcon = document.getElementById("githubIcon");
+
+        if (!menuBtn || !sidebar ) return;
+
+        const toggleSidebar = () => {
+            const isActive = sidebar.classList.toggle("active");
+            githubIcon?.classList.toggle("hidden", isActive);
+            menuBtn.textContent = isActive ? "✖" : "☰";
+            document.body.style.overflow = isActive ? "hidden" : "";
+        };
+
+        const closeSidebar = () => {
+            sidebar.classList.remove("active");
+            githubIcon?.classList.remove("hidden");
+            menuBtn.textContent = "☰";
+            document.body.style.overflow = "";
+        };
+
+        menuBtn.addEventListener("click", toggleSidebar);
+
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "Escape" && sidebar.classList.contains("active")) {
+                closeSidebar();
+            }
+        });
+
+        sidebar.addEventListener("click", (e) => {
+            if (e.target === sidebar) closeSidebar();
+        });
+    });
+</script>

@@ -1,7 +1,8 @@
 ---
-import SideBar from "../components/SideBar.astro";
+import SideBar from "../layouts/SideBar.astro";
 ---
 
+<SideBar/>
 <div class="home-container">
     <a href="https://github.com/gongdoli2" target="_blank" aria-label="GitHub" id="githubIcon">
         <svg width="40" height="40" viewBox="0 0 98 96" xmlns="http://www.w3.org/2000/svg">
@@ -49,9 +50,6 @@ import SideBar from "../components/SideBar.astro";
     </div>
 </div>
 
-<button class="menu-btn" id="menuBtn">☰</button>
-<SideBar/>
-
 <style>
     .home-container {
         display: flex;
@@ -59,7 +57,6 @@ import SideBar from "../components/SideBar.astro";
         align-items: center;
         justify-content: flex-start;
         min-height: 100vh;
-        background: #1f232d;
         gap: 40px;
         padding: 50px 20px;
         box-sizing: border-box;
@@ -209,44 +206,9 @@ import SideBar from "../components/SideBar.astro";
         pointer-events: none;
     }
 
-    .menu-btn {
-        position: fixed;
-        top: 20px;
-        left: 20px;
-        background: #654DD8;
-        color: white;
-        border: none;
-        border-radius: 8px;
-        padding: 10px 14px;
-        font-size: 20px;
-        cursor: pointer;
-        z-index: 2000;
-        transition: transform 0.2s ease, background 0.3s;
-        font-weight: 500;
-    }
-
-    .menu-btn:hover {
-        transform: scale(1.08);
-        background: #523ac0;
-    }
-
 </style>
 
 <script>
-    window.addEventListener("DOMContentLoaded", () => {
-        const menuBtn = document.getElementById("menuBtn");
-        const sidebar = document.getElementById("sidebar-page");
-        const githubIcon = document.getElementById("githubIcon");
-
-        if (!menuBtn || !sidebar || !githubIcon) return;
-
-        menuBtn.addEventListener("click", () => {
-            sidebar.classList.toggle("active");
-            githubIcon.classList.toggle("hidden");
-            menuBtn.textContent = sidebar.classList.contains("active") ? "✖" : "☰";
-        });
-    });
-
     const text = "gongdoli2";
     const typingElement = document.getElementById("typing");
     let index = 0;
