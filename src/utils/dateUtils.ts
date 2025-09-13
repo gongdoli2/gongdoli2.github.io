@@ -15,5 +15,5 @@ export function formatDate(dateStr: string | Date): string {
     }
 
     const weekdays = ["일", "월", "화", "수", "목", "금", "토"];
-    return `${date.getFullYear()}년 ${String(date.getMonth()+1).padStart(2,"0")}월 ${String(date.getDate()).padStart(2,"0")}일 (${weekdays[date.getDay()]}요일)`;
+    return `${date.getFullYear()}년 ${String(date.getMonth() + 1).padStart(2, "0")}월 ${String(date.getDate()).padStart(2, "0")}일 (${weekdays[date.getDay()]}요일)`;
 }
