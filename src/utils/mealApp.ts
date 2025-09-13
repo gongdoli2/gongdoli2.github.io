@@ -1,4 +1,5 @@
-import { API_KEY, TYPE, EDU_OFFICE_CODE, SCHOOL_CODE, TODAY } from "./config";
+import { API_KEY, TYPE, EDU_OFFICE_CODE, SCHOOL_CODE } from "./config";
+import { getTodayYYYYMMDD } from "./dateUtils";
 
 interface MealData {
     dishes: string[];
@@ -8,7 +9,8 @@ interface MealData {
 
 export async function loadMeal(mealType: string = "2"): Promise<MealData | null> {
     try {
-        const url = `https://open.neis.go.kr/hub/mealServiceDietInfo?KEY=${API_KEY}&ATPT_OFCDC_SC_CODE=${EDU_OFFICE_CODE}&SD_SCHUL_CODE=${SCHOOL_CODE}&MLSV_YMD=${TODAY}&type=${TYPE}&MMEAL_SC_CODE=${mealType}`;
+        const today = getTodayYYYYMMDD();
+        const url = `https://open.neis.go.kr/hub/mealServiceDietInfo?KEY=${API_KEY}&ATPT_OFCDC_SC_CODE=${EDU_OFFICE_CODE}&SD_SCHUL_CODE=${SCHOOL_CODE}&MLSV_YMD=${today}&type=${TYPE}&MMEAL_SC_CODE=${mealType}`;
 
         const res = await fetch(url);
         if (!res.ok) {

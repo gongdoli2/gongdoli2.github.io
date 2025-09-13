@@ -1,5 +1,6 @@
 ---
 import SideBar from "../../layouts/SideBar.astro";
+import "../../styles/school.css";
 ---
 
 <SideBar/>
@@ -7,89 +8,93 @@ import SideBar from "../../layouts/SideBar.astro";
 <div class="container">
     <h1 class="page-title">학교 정보</h1>
 
-    <!-- 학교 카드 -->
-    <section class="school-card">
-        <!--<img src="/assets/school.jpg" alt="school" class="school-img"/>-->
-        <img src="/assets/logo.svg" alt="school" class="school-img"/>
+    <section class="card school-card">
+        <div class="card-box school-info-box">
 
-        <div class="school-details">
-            <p>교육청: <span id="eduOffice" class="info-box"></span></p>
-            <p>학교 종류: <span id="schoolKind" class="info-box"></span></p>
-            <p>설립 구분: <span id="foundationType" class="info-box"></span></p>
-            <p>우편번호: <span id="zipCode" class="info-box"></span></p>
-            <p>주소: <span id="schoolAddress" class="info-box"></span> <span id="adminAddress" class="info-box"></span></p>
-            <p>전화: <span id="schoolPhone" class="info-box"></span></p>
-            <p>남녀공학: <span id="coed" class="info-box"></span></p>
-            <p>주야: <span id="dayNight" class="info-box"></span></p>
-            <p>설립일: <span id="foundationDate" class="info-box"></span></p>
-        </div>
+            <img src="/assets/logo.svg" alt="school" class="school-img"/>
 
-        <div class="school-homepage-btn-container">
-            <a href="https://school.jbedu.kr/woosuk" target="_blank">
-                <button id="goToHomepage">학교 홈페이지 바로가기</button>
-            </a>
+            <div class="school-texts">
+                <div class="school-item">
+                    <span class="label">교육청:</span>
+                    <span id="eduOffice" class="info-box"></span>
+                </div>
+                <div class="school-item">
+                    <span class="label">학교 종류:</span>
+                    <span id="schoolKind" class="info-box"></span>
+                </div>
+                <div class="school-item">
+                    <span class="label">설립 구분:</span>
+                    <span id="foundationType" class="info-box"></span>
+                </div>
+                <div class="school-item">
+                    <span class="label">우편번호:</span>
+                    <span id="zipCode" class="info-box"></span>
+                </div>
+                <div class="school-item">
+                    <span class="label">주소:</span>
+                    <span id="schoolAddress" class="info-box"></span>&nbsp;
+                    <span id="adminAddress" class="info-box"></span>
+                </div>
+                <div class="school-item">
+                    <span class="label">전화:</span>
+                    <span id="schoolPhone" class="info-box"></span>
+                </div>
+                <div class="school-item">
+                    <span class="label">남녀공학:</span>
+                    <span id="coed" class="info-box"></span>
+                </div>
+                <div class="school-item">
+                    <span class="label">주야:</span>
+                    <span id="dayNight" class="info-box"></span>
+                </div>
+                <div class="school-item">
+                    <span class="label">설립일:</span>
+                    <span id="foundationDate" class="info-box"></span>
+                </div>
+            </div>
+
+            <div class="buttons school-homepage-btn-container">
+                <a href="https://school.jbedu.kr/woosuk" target="_blank">
+                    <button id="goToHomepage">학교 홈페이지 바로가기</button>
+                </a>
+            </div>
+
         </div>
     </section>
 </div>
 
 <style>
-    .container {
-        max-width: 650px;
-        margin: 5rem auto;
-        padding: 0 1rem;
+    /* 학교 전용 텍스트 박스 */
+    .school-info-box {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
     }
 
-    .page-title {
-        text-align: center;
-        font-size: 1.8rem;
-        color: #c0aaff;
+    .school-texts {
+        display: flex;
+        flex-direction: column;
+        gap: 0.6rem;
+    }
+
+    .school-item {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        font-size: 0.95rem;
+    }
+
+    .school-item .label {
+        font-weight: 600;
+        color: #a291ff;
+        margin-right: 0.4rem;
+    }
+
+    /* 학교 이미지 */
+    .school-img {
+        width: 100%;
+        border-radius: 1rem;
         margin-bottom: 1rem;
-    }
-
-    /* 학교 카드 (급식 카드 스타일 적용) */
-    .school-card {
-        background:#2a2a3f;
-        padding:1.8rem 1.5rem;
-        border-radius:1.5rem;
-        box-shadow:0 8px 20px rgba(0,0,0,0.4);
-        color:#f0f0f0;
-        transition: transform 0.2s ease;
-    }
-    .school-card:hover { transform: translateY(-3px); }
-
-    /* 이미지 */
-    .school-img { width:100%; border-radius:1rem; margin-bottom:1.5rem; }
-
-    /* 텍스트 박스 (연보라 배경 박스) */
-    .info-box {
-        display:inline-block;
-        background: rgba(162,145,255,0.2);
-        padding:0.4rem 0.6rem;
-        border-radius:0.6rem;
-        font-weight:600;
-        color:#f0f0f0;
-        margin-left:0.3rem;
-    }
-
-    /* 버튼 */
-    .school-homepage-btn-container { text-align:center; margin-top:1.5rem; }
-    #goToHomepage {
-        background: linear-gradient(45deg,#ff4081,#e91e63);
-        color:#fff; border:none; border-radius:12px;
-        padding:0.8rem 1.8rem; cursor:pointer;
-        transition:0.2s; box-shadow:0 5px 15px rgba(0,0,0,0.15);
-    }
-    #goToHomepage:hover { transform:translateY(-3px); box-shadow:0 8px 20px rgba(0,0,0,0.25); }
-
-    /* 반응형 */
-    @media (max-width: 900px){
-        .page-title{
-            font-size: 1.6rem;
-        }
-        .info-box{
-            font-size: 0.95rem;
-            padding: 0.3rem 0.5rem;
-        }
     }
 </style>
 
