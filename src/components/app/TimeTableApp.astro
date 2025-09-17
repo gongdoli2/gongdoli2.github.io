@@ -52,8 +52,14 @@ import "../../styles/school.css";
 
     const nowElement = document.querySelector<HTMLHeadingElement>(".current-date");
     const today = new Date();
-    const dayMap: Record<number, "mon"|"tue"|"wed"|"thu"|"fri"> = { 1:"mon", 2:"tue", 3:"wed", 4:"thu", 5:"fri" };
-    const todayDay = dayMap[today.getDay()] ?? "mon";
+
+    let todayDay: "mon" | "tue" | "wed" | "thu" | "fri";
+    if (today.getDay() === 6 || today.getDay() === 0) {
+        todayDay = "mon";
+    } else {
+        const dayMap: Record<number, "mon"|"tue"|"wed"|"thu"|"fri"> = { 1:"mon", 2:"tue", 3:"wed", 4:"thu", 5:"fri" };
+        todayDay = dayMap[today.getDay()] ?? "mon";
+    }
 
     if (nowElement) nowElement.textContent = formatDate();
 

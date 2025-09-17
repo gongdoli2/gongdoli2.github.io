@@ -1,7 +1,7 @@
 import { API_KEY, TYPE, pIndex, pSize, EDU_OFFICE_CODE, SCHOOL_CODE } from "./config";
-import { getKoreanDate, formatDate } from "./dateUtils";
+import { getKoreanDate } from "./dateUtils";
 
-interface TimeTableData {
+export interface TimeTableData {
     periods: string[];
     date: string;
     dayName: string;
@@ -12,23 +12,33 @@ function getCurrentSemester(): string {
     return month >= 3 && month <= 8 ? "1" : "2";
 }
 
+function getDateForWeekday(targetDay: "mon"|"tue"|"wed"|"thu"|"fri"): Date {
+    const today = getKoreanDate();
+    const dayMap: Record<string, number> = { mon: 1, tue: 2, wed: 3, thu: 4, fri: 5 };
+    const targetWeekDay = dayMap[targetDay];
+
+    const currentWeekDay = today.getDay();
+    let offset = targetWeekDay - currentWeekDay;
+
+    if (offset < -4) offset += 7;
+    const dateObj = new Date(today);
+    dateObj.setDate(today.getDate() + offset);
+    return dateObj;
+}
+
 export async function loadTimeTable(
     grade: string = "1",
     classNm: string = "6",
     targetDay: "mon"|"tue"|"wed"|"thu"|"fri" = "mon"
 ): Promise<TimeTableData | null> {
     try {
+        const today = getKoreanDate();
+        if (today.getDay() === 0 || today.getDay() === 6) return null;
+
         const sem = getCurrentSemester();
-        const dayMap: Record<string, number> = { mon: 1, tue: 2, wed: 3, thu: 4, fri: 5 };
         const weekDays = ["일","월","화","수","목","금","토"];
 
-        const today = getKoreanDate();
-        const targetWeekDay = dayMap[targetDay];
-
-        const offset = (7 + today.getDay() - targetWeekDay) % 7;
-        const dateObj = new Date(today);
-        dateObj.setDate(today.getDate() - offset);
-
+        const dateObj = getDateForWeekday(targetDay);
         const yyyy = dateObj.getFullYear();
         const mm = String(dateObj.getMonth() + 1).padStart(2,"0");
         const dd = String(dateObj.getDate()).padStart(2,"0");
