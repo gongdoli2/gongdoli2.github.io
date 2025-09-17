@@ -31,6 +31,9 @@ import "../../styles/school.css";
     import { loadMeal } from "../../utils/mealApp.ts";
     import { formatDate } from "../../utils/dateUtils.ts";
 
+    const nowElement = document.querySelector(".current-date");
+    if (nowElement) nowElement.textContent = formatDate();
+
     document.addEventListener("DOMContentLoaded", async () => {
         const mealDiv = document.getElementById("meal-box");
         const calDiv = document.getElementById("cal-box");
@@ -75,7 +78,7 @@ import "../../styles/school.css";
                 ? content.map(d => `<div class="section-item">${d}</div>`).join("")
                 : `<div class="section-item">${content}</div>`;
 
-            return `<div><div class="section-title">${title}</div>${items} </div> `;
+            return `<div><div class="section-title">${title}</div>${items}</div>`;
         }
 
         async function renderMeal(mealType = "2") {
@@ -97,22 +100,16 @@ import "../../styles/school.css";
             setState("normal");
         }
 
-        function updateNow() {
-            const nowElement = document.querySelector(".current-date");
-            if (nowElement) nowElement.textContent = formatDate();
-        }
-
         mealButtons.forEach(btn => {
             btn.addEventListener("click", () => {
                 mealButtons.forEach(b => b.classList.remove("active"));
                 btn.classList.add("active");
 
                 renderMeal(btn.dataset.meal ?? "2");
-                updateNow();
+                if (nowElement) nowElement.textContent = formatDate();
             });
         });
 
         await renderMeal("2");
-        updateNow();
     });
 </script>

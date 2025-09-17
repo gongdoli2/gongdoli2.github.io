@@ -95,3 +95,43 @@
     .card { padding: 1.2rem; }
     .card-box { font-size: 0.9rem; padding: 0.6rem; }
 }
+
+.select-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+    padding: 0.5rem 0.8rem;
+    background-color: #2a2a3f;
+    border-radius: 0.8rem;
+}
+
+.select-box label {
+    font-weight: 600;
+    color: #b3aaff;
+    margin-right: 0.4rem;
+}
+
+.select-box select {
+    padding: 0.45rem 0.9rem;
+    border-radius: 0.6rem;
+    border: 1px solid #555;
+    background-color: #33334d;
+    color: #f0f0f0;
+    font-weight: 500;
+    cursor: pointer;
+    transition: 0.2s all ease;
+}
+
+.select-box select:hover {
+    border-color: #b3aaff;
+    box-shadow: 0 0 6px rgba(179,170,255,0.4);
+}
+
+.select-box select:focus {
+    outline: none;
+    border-color: #b3aaff;
+    box-shadow: 0 0 8px rgba(179,170,255,0.6);
+}
