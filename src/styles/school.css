@@ -92,8 +92,31 @@
 }
 
 @media (max-width: 600px) {
-    .card { padding: 1.2rem; }
-    .card-box { font-size: 0.9rem; padding: 0.6rem; }
+    .card {
+        padding: 1.2rem;
+    }
+
+    .card-box {
+        font-size: 0.9rem;
+        padding: 0.6rem;
+    }
+
+    .select-box {
+        flex-direction: column;
+        gap: 0.8rem;
+    }
+
+    .buttons {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+    }
+
+    .buttons button {
+        flex: 1 1 45%;
+        padding: 0.5rem;
+        font-size: 0.85rem;
+    }
 }
 
 .select-box {
