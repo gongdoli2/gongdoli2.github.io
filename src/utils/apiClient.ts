@@ -1,19 +1,16 @@
 export interface ApiClientOptions {
-    timeoutMs?: number; // 기본 타임아웃
-    cacheByDay?: boolean; // URL별 하루 캐시
+    timeoutMs?: number;
+    cacheByDay?: boolean;
 }
 
 const defaultOpts: ApiClientOptions = { timeoutMs: 2500, cacheByDay: true };
-
-// simple in-memory cache keyed by URL
 const dayCache: Record<string, { day: string; data: any }> = {};
 
-export async function fetchWithTimeout(url: string, opts: ApiClientOptions = {}) {
+export async function fetchApi(url: string, opts: ApiClientOptions = {}) {
     const { timeoutMs, cacheByDay } = { ...defaultOpts, ...opts };
-
-    // 하루 단위 캐시
     const today = new Date().toISOString().slice(0, 10);
-    if (cacheByDay && dayCache[url] && dayCache[url].day === today) {
+
+    if (cacheByDay && dayCache[url]?.day === today) {
         return dayCache[url].data;
     }
 

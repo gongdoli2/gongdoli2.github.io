@@ -27,89 +27,83 @@ import "../../styles/school.css";
     </section>
 </div>
 
-<script>
+<script type="module">
     import { loadMeal } from "../../utils/mealApp.ts";
     import { formatDate } from "../../utils/dateUtils.ts";
 
-    const nowElement = document.querySelector(".current-date");
-    if (nowElement) nowElement.textContent = formatDate();
+    const nowElement = document.querySelector<HTMLHeadingElement>(".current-date");
+    const mealDiv = document.getElementById("meal-box");
+    const calDiv = document.getElementById("cal-box");
+    const nutDiv = document.getElementById("nut-box");
+    const mealButtonsContainer = document.getElementById("meal-buttons");
+    const mealButtons = mealButtonsContainer?.querySelectorAll<HTMLButtonElement>("button") ?? [];
+
+    const messages = {
+        loading: {
+            meal: "급식을 불러오는 중...",
+            cal: "칼로리를 불러오는 중...",
+            nut: "영양정보를 불러오는 중..."
+        },
+        empty: "오늘은 급식이 없습니다."
+    };
+
+    const calSection = calDiv?.parentElement;
+    const nutSection = nutDiv?.parentElement;
+
+    function setState(state: "loading" | "empty" | "normal") {
+        const show = state !== "empty";
+        if (mealButtonsContainer) mealButtonsContainer.style.display = show ? "flex" : "none";
+        if (calSection) calSection.style.display = show ? "block" : "none";
+        if (nutSection) nutSection.style.display = show ? "block" : "none";
+
+        if (!mealDiv || !calDiv || !nutDiv) return;
+
+        if (state === "empty") {
+            mealDiv.textContent = messages.empty;
+            calDiv.textContent = "";
+            nutDiv.textContent = "";
+        } else if (state === "loading") {
+            mealDiv.textContent = messages.loading.meal;
+            calDiv.textContent = messages.loading.cal;
+            nutDiv.textContent = messages.loading.nut;
+        }
+    }
+
+    function renderSection(title: string, content: string | string[]): string {
+        const items = Array.isArray(content)
+            ? content.map(d => `<div class="section-item">${d}</div>`).join("")
+            : `<div class="section-item">${content}</div>`;
+        return `<div><div class="section-title">${title}</div>${items}</div>`;
+    }
+
+    async function renderMeal(mealType = "2") {
+        setState("loading");
+
+        const mealData = await loadMeal(mealType);
+        if (!mealData || !mealData.dishes?.length) {
+            setState("empty");
+            return;
+        }
+
+        if (mealDiv && calDiv && nutDiv) {
+            mealDiv.innerHTML = renderSection("급식", mealData.dishes);
+            calDiv.innerHTML = renderSection("칼로리", mealData.cal);
+            nutDiv.innerHTML = renderSection("영양정보", mealData.nutrition);
+        }
+
+        setState("normal");
+    }
+
+    function handleButtonClick(btn: HTMLButtonElement) {
+        mealButtons.forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        renderMeal(btn.dataset.meal ?? "2");
+        if (nowElement) nowElement.textContent = formatDate();
+    }
 
     document.addEventListener("DOMContentLoaded", async () => {
-        const mealDiv = document.getElementById("meal-box");
-        const calDiv = document.getElementById("cal-box");
-        const nutDiv = document.getElementById("nut-box");
-        const mealButtonsContainer = document.getElementById("meal-buttons");
-        const mealButtons = mealButtonsContainer?.querySelectorAll("button") ?? [];
-
-        const messages = {
-            loading: {
-                meal: "급식을 불러오는 중...",
-                cal: "칼로리를 불러오는 중...",
-                nut: "영양정보를 불러오는 중..."
-            },
-            empty: "오늘은 급식이 없습니다."
-        };
-
-        const calSection = calDiv?.parentElement;
-        const nutSection = nutDiv?.parentElement;
-
-        function setState(state: "loading" | "empty" | "normal") {
-            const showSections = state !== "empty";
-
-            if (mealButtonsContainer) mealButtonsContainer.style.display = showSections ? "flex" : "none";
-            if (calSection) calSection.style.display = showSections ? "block" : "none";
-            if (nutSection) nutSection.style.display = showSections ? "block" : "none";
-
-            if (!mealDiv || !calDiv || !nutDiv) return;
-
-            if (state === "empty") {
-                mealDiv.innerHTML = `${messages.empty}`;
-                calDiv.innerHTML = "";
-                nutDiv.innerHTML = "";
-            } else if (state === "loading") {
-                mealDiv.textContent = messages.loading.meal;
-                calDiv.textContent = messages.loading.cal;
-                nutDiv.textContent = messages.loading.nut;
-            }
-        }
-
-        function renderSection(title: string, content: string | string[]): string {
-            const items = Array.isArray(content)
-                ? content.map(d => `<div class="section-item">${d}</div>`).join("")
-                : `<div class="section-item">${content}</div>`;
-
-            return `<div><div class="section-title">${title}</div>${items}</div>`;
-        }
-
-        async function renderMeal(mealType = "2") {
-            setState("loading");
-
-            const mealData = await loadMeal(mealType);
-
-            if (!mealData || !mealData.dishes?.length) {
-                setState("empty");
-                return;
-            }
-
-            if (mealDiv && calDiv && nutDiv) {
-                mealDiv.innerHTML = `<div class="card-box">${renderSection("급식", mealData.dishes)}</div>`;
-                calDiv.innerHTML = `<div class="card-box">${renderSection("칼로리", mealData.cal)}</div>`;
-                nutDiv.innerHTML = `<div class="card-box">${renderSection("영양정보", mealData.nutrition)}</div>`;
-            }
-
-            setState("normal");
-        }
-
-        mealButtons.forEach(btn => {
-            btn.addEventListener("click", () => {
-                mealButtons.forEach(b => b.classList.remove("active"));
-                btn.classList.add("active");
-
-                renderMeal(btn.dataset.meal ?? "2");
-                if (nowElement) nowElement.textContent = formatDate();
-            });
-        });
-
+        if (nowElement) nowElement.textContent = formatDate();
+        mealButtons.forEach(btn => btn.addEventListener("click", () => handleButtonClick(btn)));
         await renderMeal("2");
     });
 </script>
