@@ -1,171 +1,107 @@
-<!-- -&#45;&#45;-->
-<!--import SideBar from "../../layouts/SideBar.astro";-->
-<!--import "../../styles/school.css";-->
-<!-- -&#45;&#45;-->
-
-<!--<SideBar/>-->
-
-<!--<div class="container">-->
-<!--    <h1 class="page-title">학교 정보</h1>-->
-
-<!--    <section class="card school-card">-->
-<!--        <div class="card-box school-info-box">-->
-
-<!--            <img src="/assets/logo.svg" alt="school" class="school-img"/>-->
-
-<!--            <div class="school-texts">-->
-<!--                <div class="school-item">-->
-<!--                    <span class="label">교육청:</span>-->
-<!--                    <span id="eduOffice" class="info-box"></span>-->
-<!--                </div>-->
-<!--                <div class="school-item">-->
-<!--                    <span class="label">학교 종류:</span>-->
-<!--                    <span id="schoolKind" class="info-box"></span>-->
-<!--                </div>-->
-<!--                <div class="school-item">-->
-<!--                    <span class="label">설립 구분:</span>-->
-<!--                    <span id="foundationType" class="info-box"></span>-->
-<!--                </div>-->
-<!--                <div class="school-item">-->
-<!--                    <span class="label">우편번호:</span>-->
-<!--                    <span id="zipCode" class="info-box"></span>-->
-<!--                </div>-->
-<!--                <div class="school-item">-->
-<!--                    <span class="label">주소:</span>-->
-<!--                    <span id="schoolAddress" class="info-box"></span>&nbsp;-->
-<!--                    <span id="adminAddress" class="info-box"></span>-->
-<!--                </div>-->
-<!--                <div class="school-item">-->
-<!--                    <span class="label">전화:</span>-->
-<!--                    <span id="schoolPhone" class="info-box"></span>-->
-<!--                </div>-->
-<!--                <div class="school-item">-->
-<!--                    <span class="label">남녀공학:</span>-->
-<!--                    <span id="coed" class="info-box"></span>-->
-<!--                </div>-->
-<!--                <div class="school-item">-->
-<!--                    <span class="label">주야:</span>-->
-<!--                    <span id="dayNight" class="info-box"></span>-->
-<!--                </div>-->
-<!--                <div class="school-item">-->
-<!--                    <span class="label">설립일:</span>-->
-<!--                    <span id="foundationDate" class="info-box"></span>-->
-<!--                </div>-->
-<!--            </div>-->
-
-<!--            <div class="buttons school-homepage-btn-container">-->
-<!--                <a href="https://school.jbedu.kr/woosuk" target="_blank">-->
-<!--                    <button id="goToHomepage">학교 홈페이지 바로가기</button>-->
-<!--                </a>-->
-<!--            </div>-->
-
-<!--        </div>-->
-<!--    </section>-->
-<!--</div>-->
-
-<!--<style>-->
-<!--    /* 학교 전용 텍스트 박스 */-->
-<!--    .school-info-box {-->
-<!--        display: flex;-->
-<!--        flex-direction: column;-->
-<!--        gap: 1rem;-->
-<!--    }-->
-
-<!--    .school-texts {-->
-<!--        display: flex;-->
-<!--        flex-direction: column;-->
-<!--        gap: 0.6rem;-->
-<!--    }-->
-
-<!--    .school-item {-->
-<!--        display: flex;-->
-<!--        flex-wrap: wrap;-->
-<!--        align-items: center;-->
-<!--        font-size: 0.95rem;-->
-<!--    }-->
-
-<!--    .school-item .label {-->
-<!--        font-weight: 600;-->
-<!--        color: #a291ff;-->
-<!--        margin-right: 0.4rem;-->
-<!--    }-->
-
-<!--    /* 학교 이미지 */-->
-<!--    .school-img {-->
-<!--        width: 100%;-->
-<!--        border-radius: 1rem;-->
-<!--        margin-bottom: 1rem;-->
-<!--    }-->
-<!--</style>-->
-
-<!--<script>-->
-<!--    import { renderSchoolInfo } from '../../utils/schoolApp.ts';-->
-
-<!--    document.addEventListener("DOMContentLoaded", async () => {-->
-<!--        await renderSchoolInfo();-->
-<!--    });-->
-<!--</script>-->
 ---
-import "../../styles/school.css";
 import SideBar from "../../layouts/SideBar.astro";
+import "../../styles/school.css";
 ---
+
 <SideBar/>
 
 <div class="container">
     <h1 class="page-title">학교 정보</h1>
 
     <section class="card school-card">
-        <img class="school-img" src="/assets/logo.svg" alt="school logo" />
-        <div>
-            <div class="card-box school-info-box" id="school-info">
-                <div class="section-title">학교 정보</div>
-                <div class="school-texts" id="schoolFields">
-                    <!-- JS가 채워넣음 -->
+        <div class="card-box school-info-box">
+
+            <img src="/assets/logo.svg" alt="school" class="school-img"/>
+
+            <div class="school-texts">
+                <div class="school-item">
+                    <span class="label">교육청:</span>
+                    <span id="eduOffice" class="info-box"></span>
+                </div>
+                <div class="school-item">
+                    <span class="label">학교 종류:</span>
+                    <span id="schoolKind" class="info-box"></span>
+                </div>
+                <div class="school-item">
+                    <span class="label">설립 구분:</span>
+                    <span id="foundationType" class="info-box"></span>
+                </div>
+                <div class="school-item">
+                    <span class="label">우편번호:</span>
+                    <span id="zipCode" class="info-box"></span>
+                </div>
+                <div class="school-item">
+                    <span class="label">주소:</span>
+                    <span id="schoolAddress" class="info-box"></span>&nbsp;
+                    <span id="adminAddress" class="info-box"></span>
+                </div>
+                <div class="school-item">
+                    <span class="label">전화:</span>
+                    <span id="schoolPhone" class="info-box"></span>
+                </div>
+                <div class="school-item">
+                    <span class="label">남녀공학:</span>
+                    <span id="coed" class="info-box"></span>
+                </div>
+                <div class="school-item">
+                    <span class="label">주야:</span>
+                    <span id="dayNight" class="info-box"></span>
+                </div>
+                <div class="school-item">
+                    <span class="label">설립일:</span>
+                    <span id="foundationDate" class="info-box"></span>
                 </div>
             </div>
 
-            <div style="margin-top:12px;">
-                <a id="homepageLink" href="#" target="_blank"><button>학교 홈페이지 바로가기</button></a>
+            <div class="buttons school-homepage-btn-container">
+                <a href="https://school.jbedu.kr/woosuk" target="_blank">
+                    <button id="goToHomepage">학교 홈페이지 바로가기</button>
+                </a>
             </div>
+
         </div>
     </section>
 </div>
 
-<script type="module">
-    import { fetchSchoolInfo } from "../utils/schoolApp.js";
-    import { formatDate } from "../utils/dateUtils.js";
-
-    const fieldsEl = document.getElementById("schoolFields");
-    const homepageLink = document.getElementById("homepageLink");
-
-    function addRow(label, value) {
-        const wrap = document.createElement("div");
-        wrap.className = "school-item";
-        wrap.innerHTML = `<span class="label">${label}</span><span class="info-box">${value ?? ""}</span>`;
-        fieldsEl.appendChild(wrap);
+<style>
+    /* 학교 전용 텍스트 박스 */
+    .school-info-box {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
     }
 
-    (async function init(){
-        const s = await fetchSchoolInfo();
-        if (!s) {
-            fieldsEl.innerHTML = "<div class='section-item'>학교 정보를 불러올 수 없습니다.</div>";
-            return;
-        }
+    .school-texts {
+        display: flex;
+        flex-direction: column;
+        gap: 0.6rem;
+    }
 
-        addRow("학교명:", s.SCHUL_NM);
-        addRow("영문명:", s.ENG_SCHUL_NM);
-        addRow("교육청:", s.ATPT_OFCDC_SC_NM);
-        addRow("학교 종류:", s.SCHUL_KND_SC_NM);
-        addRow("설립 구분:", s.FOND_SC_NM);
-        addRow("우편번호:", s.ORG_RDNZC);
-        addRow("주소:", s.ORG_RDNMA);
-        addRow("행정동:", s.ORG_RDNDA);
-        addRow("전화:", s.ORG_TELNO);
-        addRow("홈페이지:", `<a href="${s.HMPG_ADRES}" target="_blank">${s.HMPG_ADRES}</a>`);
-        addRow("남녀공학:", s.COEDU_SC_NM);
-        addRow("주야:", s.DGHT_SC_NM);
-        addRow("설립일:", s.FOND_YMD ? formatDate(s.FOND_YMD) : "");
+    .school-item {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        font-size: 0.95rem;
+    }
 
-        homepageLink.href = s.HMPG_ADRES || "#";
-    })();
+    .school-item .label {
+        font-weight: 600;
+        color: #a291ff;
+        margin-right: 0.4rem;
+    }
+
+    /* 학교 이미지 */
+    .school-img {
+        width: 100%;
+        border-radius: 1rem;
+        margin-bottom: 1rem;
+    }
+</style>
+
+<script>
+    import { renderSchoolInfo } from '../../utils/schoolApp.ts';
+
+    document.addEventListener("DOMContentLoaded", async () => {
+        await renderSchoolInfo();
+    });
 </script>
