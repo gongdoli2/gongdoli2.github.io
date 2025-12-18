@@ -1,4 +1,3 @@
-/*
 import { API_KEY, TYPE, pIndex, pSize, EDU_OFFICE_CODE, SCHOOL_CODE } from "./config";
 import { getKoreanDate } from "./dateUtils";
 
@@ -71,61 +70,6 @@ export async function loadTimeTable(
 
     } catch(err) {
         console.error("시간표 불러오기 실패:", err);
-        return null;
-    }
-}
-*/
-import { getKoreanDate, formatDate } from "./dateUtils";
-import { fetchWithTimeout } from "./apiClient";
-import { API_KEY, TYPE, pIndex, pSize, EDU_OFFICE_CODE, SCHOOL_CODE } from "./config";
-
-export interface TimeTableData {
-    periods: string[];
-    date: string;
-    dayName: string;
-}
-
-function getCurrentSemester(): string {
-    const month = getKoreanDate().getMonth() + 1;
-    return month >= 3 && month <= 8 ? "1" : "2";
-}
-
-function getDateForWeekday(targetDay: "mon"|"tue"|"wed"|"thu"|"fri"): Date {
-    const today = getKoreanDate();
-    const map: Record<string, number> = { mon:1, tue:2, wed:3, thu:4, fri:5 };
-    const target = map[targetDay];
-    const diff = target - today.getDay();
-    const d = new Date(today);
-    d.setDate(today.getDate() + diff);
-    return d;
-}
-
-export async function loadTimeTable(grade = "1", classNm = "6", targetDay: "mon"|"tue"|"wed"|"thu"|"fri" = "mon"): Promise<TimeTableData | null> {
-    try {
-        const sem = getCurrentSemester();
-        const dateObj = getDateForWeekday(targetDay);
-        const yyyy = dateObj.getFullYear();
-        const mm = String(dateObj.getMonth()+1).padStart(2,"0");
-        const dd = String(dateObj.getDate()).padStart(2,"0");
-        const dateStr = `${yyyy}${mm}${dd}`;
-        const dayNames = ["일","월","화","수","목","금","토"];
-        const dayName = dayNames[dateObj.getDay()];
-
-        const url = `https://open.neis.go.kr/hub/hisTimetable?KEY=${API_KEY}&Type=${TYPE}&pIndex=${pIndex}&pSize=${pSize}&ATPT_OFCDC_SC_CODE=${EDU_OFFICE_CODE}&SD_SCHUL_CODE=${SCHOOL_CODE}&ALL_TI_YMD=${dateStr}&GRADE=${grade}&CLASS_NM=${classNm}&SEM=${sem}`;
-
-        const json = await fetchWithTimeout(url, { timeoutMs: 3000, cacheByDay: true });
-        const rows = json?.hisTimetable?.[1]?.row ?? [];
-        if (!rows.length) return null;
-
-        const map: Record<number, string> = {};
-        for (const r of rows) {
-            const p = Number(r.PERIO);
-            if (p) map[p] = (r.ITRT_CNTNT || "").trim();
-        }
-        const periods = Array.from({ length: 7 }, (_, i) => `${i+1} 교시 - ${map[i+1] ?? ""}`);
-        return { periods, date: dateStr, dayName };
-    } catch (e) {
-        console.error("loadTimeTable error:", e);
         return null;
     }
 }
