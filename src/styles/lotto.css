@@ -160,22 +160,71 @@ tr:nth-child(even) {
 }
 
 /* =========================
-   MOBILE
+   MOBILE (Optimized)
    ========================= */
 @media (max-width: 480px) {
     body {
-        font-size: 0.95rem;
+        font-size: 14px; /* 가독성을 위한 기본 폰트 크기 조정 */
     }
 
     .container {
-        padding: 1rem;
+        padding: 1rem 0.5rem; /* 좌우 여백을 줄여 콘텐츠 공간 확보 */
+    }
+
+    /* 타이틀 크기 조정 */
+    .page-title {
+        font-size: 1.4rem;
+        margin-bottom: 1rem;
+    }
+
+    /* 테이블 최적화 */
+    table {
+        width: 100%;
+        font-size: 0.85rem;
     }
 
     th, td {
-        padding: 0.6rem;
+        padding: 0.7rem 0.4rem; /* 좁은 화면에서 패딩 최적화 */
     }
 
+    /* 로또 번호 간격 및 강조 */
     .numbers {
-        letter-spacing: 0.1rem;
+        letter-spacing: 0.05rem;
+        font-weight: 600;
+        word-break: keep-all; /* 번호가 중간에 끊기지 않게 함 */
+    }
+
+    /* 카드 박스 여백 조정 */
+    .card-box.lotto-box {
+        padding: 1.5rem 1rem;
+        width: 95%; /* 화면 끝에 너무 붙지 않게 설정 */
+    }
+
+    /* 카운트다운 숫자 크기 최적화 */
+    #countdown {
+        font-size: 2.2rem;
+        padding: 0.8rem;
+    }
+
+    /* 입력창 크기 확대 (모바일에서 터치하기 쉽게) */
+    .number-box {
+        width: 3.5rem;
+        height: 3rem;
+        font-size: 1.2rem;
+    }
+
+    /* 버튼 크기 및 간격 조정 */
+    .button-common {
+        width: 100%; /* 모바일에서는 버튼을 꽉 차게 만들어 터치 영역 확보 */
+        max-width: 280px;
+        padding: 1rem;
+        font-size: 1rem;
+        margin-top: 1.5rem;
+    }
+
+    /* 상태 메시지 줄바꿈 방지 및 크기 조정 */
+    .status-message {
+        font-size: 0.95rem;
+        line-height: 1.4;
     }
 }
