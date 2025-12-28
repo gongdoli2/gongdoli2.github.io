@@ -1,0 +1,103 @@
+---
+import "../../styles/lotto.css";
+import SideBar from "../../layouts/SideBar.astro";
+---
+
+<SideBar />
+
+<div class="container">
+    <h1 class="page-title">🎰 로또 참가자 리스트</h1>
+
+    <div id="list-container">
+        <p id="loading-text">데이터를 불러오는 중...</p>
+        <table id="lotto-table" style="display:none;">
+            <thead>
+            <tr>
+                <th>성명</th>
+                <th>학번</th>
+                <th>번호</th>
+            </tr>
+            </thead>
+            <tbody id="lotto-tbody"></tbody>
+        </table>
+    </div>
+</div>
+
+<script type="module">
+    document.addEventListener("DOMContentLoaded", async () => {
+        const tbody = document.getElementById("lotto-tbody");
+        const table = document.getElementById("lotto-table");
+        const loadingText = document.getElementById("loading-text");
+
+        try {
+            const res = await fetch("/api/lotto/list");
+            if (!res.ok) throw new Error("데이터를 불러올 수 없습니다.");
+
+            const entries = await res.json();
+            if (entries.length === 0) {
+                loadingText.textContent = "참가자가 없습니다.";
+                return;
+            }
+
+            // tbody 채우기
+            entries.forEach(entry => {
+                const tr = document.createElement("tr");
+                const numbers = entry.numbers.join(" ");
+                tr.innerHTML = `
+          <td>${entry.name}</td>
+          <td>${entry.studentId}</td>
+          <td class="numbers">${numbers}</td>
+        `;
+                tbody.appendChild(tr);
+            });
+
+            // 테이블 보여주기
+            loadingText.style.display = "none";
+            table.style.display = "table";
+        } catch (err) {
+            console.error(err);
+            loadingText.textContent = "서버 오류가 발생했습니다.";
+        }
+    });
+</script>
+
+<style>
+    .container {
+        padding: 2rem;
+        text-align: center;
+        color: #fff;
+    }
+
+    table {
+        width: 100%;
+        max-width: 600px;
+        margin: 1rem auto;
+        border-collapse: collapse;
+        background-color: #2a2448;
+        border-radius: 12px;
+        overflow: hidden;
+    }
+
+    th, td {
+        padding: 0.8rem 1rem;
+        text-align: center;
+    }
+
+    th {
+        background-color: #3a2f5c;
+    }
+
+    tr:nth-child(even) {
+        background-color: #352f65;
+    }
+
+    .numbers {
+        letter-spacing: 0.2rem;
+    }
+
+    #loading-text {
+        margin-top: 1rem;
+        color: #a291ff;
+        font-weight: 600;
+    }
+</style>
