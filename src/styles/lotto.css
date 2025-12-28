@@ -1,8 +1,13 @@
-/* 공통 */
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+
+/* =========================
+   RESET / BASE
+   ========================= */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
 }
 
 body {
@@ -11,15 +16,70 @@ body {
     color: #ffffff;
 }
 
-/* Container */
+/* =========================
+   LAYOUT
+   ========================= */
 .container {
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 2rem;
+    text-align: center;
 }
 
-/* Card */
+/* =========================
+   PAGE TITLE
+   ========================= */
+.page-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+}
+
+/* =========================
+   TABLE (LOTTO LIST)
+   ========================= */
+table {
+    width: 100%;
+    max-width: 600px;
+    margin: 1rem auto;
+    border-collapse: collapse;
+    background-color: #2a2448;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+th, td {
+    padding: 0.8rem 1rem;
+    text-align: center;
+    user-select: none;
+}
+
+th {
+    background-color: #3a2f5c;
+    font-weight: 600;
+}
+
+tr:nth-child(even) {
+    background-color: #352f65;
+}
+
+.numbers {
+    letter-spacing: 0.2rem;
+}
+
+/* =========================
+   LOADING TEXT
+   ========================= */
+#loading-text {
+    margin-top: 1rem;
+    color: #a291ff;
+    font-weight: 600;
+}
+
+/* =========================
+   CARD (DRAW PAGE)
+   ========================= */
 .lotto-card {
     width: 100%;
     max-width: 500px;
@@ -30,72 +90,44 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center; /* 내용이 가운데 오도록 */
+    justify-content: center;
     padding: 2rem;
-    min-height: 300px; /* 하단 여백 방지 */
     background-color: #2a2448;
     border-radius: 20px;
     box-shadow: 0 6px 20px rgba(0,0,0,0.3);
-    transition: all 0.3s ease;
 }
 
-
-/* Countdown */
+/* =========================
+   COUNTDOWN
+   ========================= */
 #countdown {
-    font-size: 3rem;
+    font-size: clamp(1.8rem, 6vw, 3rem);
     font-weight: 700;
     color: #a291ff;
-    text-align: center;
     margin-bottom: 1.5rem;
-    padding: 1rem 2rem;
+    padding: 1rem 1.5rem;
     background-color: rgba(101, 77, 216, 0.15);
     border-radius: 15px;
-    box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
-    letter-spacing: 2px;
 }
 
-/* Status message */
+/* =========================
+   STATUS
+   ========================= */
 .status-message {
-    font-size: 1.2rem;
-    font-weight: 500;
-    text-align: center;
+    font-size: 1.1rem;
     margin-bottom: 2rem;
     color: #e0e0ff;
 }
 
-/* Entry form */
-.entry-section .lotto-item {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 1rem;
-}
-
-.entry-section .label {
-    font-weight: 600;
-    margin-bottom: 0.5rem;
-    color: #cfcfff;
-}
-
+/* =========================
+   INPUT / BUTTON
+   ========================= */
 .input-box, .number-box {
     padding: 0.6rem 0.8rem;
     border-radius: 10px;
     border: 1px solid #555;
-    font-size: 1rem;
-    transition: border-color 0.2s, background 0.2s;
     background-color: #3a2f5c;
     color: #fff;
-}
-
-.input-box:focus, .number-box:focus {
-    border-color: #a291ff;
-    outline: none;
-    background-color: #443d6c;
-}
-
-/* Number inputs */
-.number-inputs {
-    display: flex;
-    gap: 0.5rem;
 }
 
 .number-box {
@@ -103,62 +135,47 @@ body {
     text-align: center;
 }
 
-/* 숫자 input 화살표 제거 (Chrome, Edge, Safari) */
-.number-box::-webkit-outer-spin-button,
-.number-box::-webkit-inner-spin-button {
+.number-box::-webkit-inner-spin-button,
+.number-box::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
 
-/* 숫자 input 화살표 제거 (Firefox) */
 .number-box[type=number] {
     -moz-appearance: textfield;
 }
 
-/* Button */
 .button-common {
     margin-top: 1rem;
     padding: 0.8rem 1.5rem;
     background-color: #3a2f5c;
-    color: #fff;
-    font-size: 1rem;
-    font-weight: 700;
-    border: none;
     border-radius: 25px;
+    font-weight: 700;
     cursor: pointer;
-    transition: background 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
-    box-shadow: 0 4px 12px rgba(101, 77, 216, 0.35);
+    transition: 0.25s;
 }
 
 .button-common:hover {
     background-color: #a291ff;
-    transform: scale(1.05);
-    box-shadow: 0 6px 16px rgba(101, 77, 216, 0.5);
 }
 
-.lotto-description {
-    margin-top: 1rem;
-    font-size: 0.95rem;
-    color: #333;          /* 진한 회색으로 가독성 */
-    text-align: center;    /* 가운데 정렬 */
-    line-height: 1.5;     /* 줄 간격 */
-}
+/* =========================
+   MOBILE
+   ========================= */
+@media (max-width: 480px) {
+    body {
+        font-size: 0.95rem;
+    }
 
-.draw-info {
-    text-align: center;
-    font-size: 1.2rem;
-    font-weight: 600; /* 굵게 */
-    margin-bottom: 1rem;
-    color: #e0e0ff;
-}
+    .container {
+        padding: 1rem;
+    }
 
-#draw-time-text {
-    font-weight: 700;
-    font-size: 1.2rem;
-    color: #ffca28; /* 튀는 노란색 */
-    background-color: rgba(255, 202, 40, 0.1);
-    padding: 0.5rem 1rem;
-    border-radius: 12px;
-    margin-bottom: 1rem;
-    text-align: center;
+    th, td {
+        padding: 0.6rem;
+    }
+
+    .numbers {
+        letter-spacing: 0.1rem;
+    }
 }
