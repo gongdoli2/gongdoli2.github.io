@@ -8,6 +8,10 @@ import SideBar from "../../layouts/SideBar.astro";
 <div class="container">
     <h1 class="page-title">🎰 로또 참가자 리스트</h1>
 
+    <div id="count-badge" style="display:none;">
+        현재 <span id="total-count">0</span>명이 참가 중입니다
+    </div>
+
     <div id="list-container">
         <p id="loading-text">데이터를 불러오는 중...</p>
         <table id="lotto-table" style="display:none;">
@@ -28,12 +32,19 @@ import SideBar from "../../layouts/SideBar.astro";
         const tbody = document.getElementById("lotto-tbody");
         const table = document.getElementById("lotto-table");
         const loadingText = document.getElementById("loading-text");
+        const countBadge = document.getElementById("count-badge");
+        const totalCount = document.getElementById("total-count");
 
         try {
             const res = await fetch("/api/lotto/list");
             if (!res.ok) throw new Error("데이터를 불러올 수 없습니다.");
 
             const entries = await res.json();
+
+            // 인원수 업데이트
+            totalCount.textContent = entries.length;
+            countBadge.style.display = "block";
+
             if (entries.length === 0) {
                 loadingText.textContent = "참가자가 없습니다.";
                 return;

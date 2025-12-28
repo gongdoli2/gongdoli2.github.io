@@ -325,3 +325,21 @@ body {
     color: rgba(255, 255, 255, 0.3);
     text-align: center;
 }
+
+#count-badge {
+    background-color: rgba(162, 145, 255, 0.1);
+    border: 1px solid rgba(162, 145, 255, 0.3);
+    color: #e0e0ff;
+    padding: 0.6rem 1.2rem;
+    border-radius: 50px;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    font-size: 1rem;
+}
+
+#total-count {
+    color: #ffca28; /* 숫자만 노란색으로 강조 */
+    font-size: 1.2rem;
+    font-weight: 800;
+    margin: 0 2px;
+}
