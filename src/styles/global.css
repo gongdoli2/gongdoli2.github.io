@@ -35,3 +35,18 @@ body {
     box-shadow: 0 6px 16px rgba(101, 77, 216, 0.5);
     text-decoration: none;
 }
+
+
+.footer-note {
+    margin-top: 1rem;
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.3);
+    text-align: center;
+    width: 100%;
+    letter-spacing: -0.02em;
+}
+
+.footer-note strong {
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.5);
+}
