@@ -214,3 +214,43 @@ body {
         color: #b0b0cf;
     }
 }
+
+.lotto-info-container {
+    margin-top: 1.5rem;
+    padding: 1.2rem;
+    background: rgba(255, 255, 255, 0.05); /* 은은한 투명 배경 */
+    border-radius: 15px;
+    border-left: 4px solid #a291ff; /* 포인트 컬러 선 */
+    text-align: left; /* 설명은 왼쪽 정렬이 가독성이 좋음 */
+}
+
+.info-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 0.8rem;
+    font-size: 0.85rem;
+    color: #cfcfff; /* 글자색을 밝게 변경 */
+    line-height: 1.5;
+}
+
+.info-item:last-child {
+    margin-bottom: 0;
+}
+
+.info-icon {
+    font-size: 1rem;
+    flex-shrink: 0;
+}
+
+.info-item strong {
+    color: #ffca28; /* 강조 텍스트는 노란색으로 */
+    font-weight: 600;
+}
+
+.info-item.highlight {
+    background: rgba(162, 145, 255, 0.1); /* 선생님 안내 부분만 살짝 강조 */
+    padding: 8px;
+    border-radius: 8px;
+    margin-top: 5px;
+}
