@@ -1,0 +1,152 @@
+---
+import "../../styles/lotto.css";
+import SideBar from "../../layouts/SideBar.astro";
+export const prerender = false;
+---
+
+<SideBar />
+
+<div class="container">
+    <h1 class="page-title">🎰 로또 추첨</h1>
+
+    <section class="card lotto-card">
+        <div class="card-box lotto-box">
+
+            <div id="draw-info" class="draw-info">
+                추첨은 <strong id="draw-time-text">--시 --분</strong>에 진행됩니다.
+            </div>
+
+            <div id="countdown" class="countdown">--:--:--</div>
+            <div id="status" class="status-message"></div>
+
+            <div id="entry-section" class="entry-section">
+                {["성명", "ID"].map((label, idx) => (
+                        <div class="lotto-item">
+                            <label class="label">{label}</label>
+                            <input
+                                    id={idx === 0 ? "name" : "studentId"}
+                                    class="input-box"
+                                    placeholder={idx === 0 ? "예) 서지민" : "예) 10614"}
+                            />
+                        </div>
+                ))}
+
+                <div class="lotto-item">
+                    <span class="label">번호 (1~10)</span>
+                    <div class="number-inputs">
+                        {Array.from({ length: 6 }).map((_, idx) => (
+                                <input type="number" min="1" max="10" class="number-box" key={idx} />
+                        ))}
+                    </div>
+                </div>
+
+                <div class="buttons">
+                    <button id="submit" class="button-common">🎟️ 참여하기</button>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="lotto-description" style="margin-top: 1rem; font-size: 0.9rem; color: #555; line-height: 1.4;">
+        번호는 1~10 사이 숫자 6개를 선택해주세요. 참여 후에는 수정할 수 없습니다.<br>
+        당첨자는 추첨 후 발표되며, 참여 인원수에 따라 당첨 확률이 달라질 수 있습니다.<br>
+        선생님도 참여가 가능합니다. 단 ID 입력란에는 학번이 아닌 다른 문자를 작성해주세요.
+    </div>
+
+</div>
+
+<script type="module">
+    document.addEventListener("DOMContentLoaded", async () => {
+        const entrySection = document.getElementById("entry-section");
+        const statusBox = document.getElementById("status");
+        const countdownBox = document.getElementById("countdown");
+        const submitBtn = document.getElementById("submit");
+        const drawTimeText = document.getElementById("draw-time-text");
+        const drawInfo = document.getElementById("draw-info");
+
+        const drawTime = new Date("2025-12-29T12:30:00");
+
+        drawTimeText.textContent = `${drawTime.getHours()}시 ${drawTime.getMinutes()}분`;
+
+        const WINNING_NUMBERS = [4, 7, 2, 8, 10, 7];
+
+        let timer = null;
+
+        function updateCountdown(diff) {
+            if (diff <= 0) {
+                if (timer) clearInterval(timer);
+                showWinner();
+                return;
+            }
+            const h = String(Math.floor(diff / 3600000)).padStart(2, "0");
+            const m = String(Math.floor((diff % 3600000) / 60000)).padStart(2, "0");
+            const s = String(Math.floor((diff % 60000) / 1000)).padStart(2, "0");
+            countdownBox.textContent = `${h}:${m}:${s}`;
+        }
+
+        async function showWinner() {
+            entrySection.style.display = "none";
+            drawTimeText.style.display = "none";
+            drawInfo.style.display = "none";
+            countdownBox.style.display = "none";
+
+            // 참가자 리스트 가져오기
+            const res = await fetch("/api/lotto/list");
+            const entries = res.ok ? await res.json() : [];
+
+            // 당첨자 찾기 (여러명 가능)
+            const winners = entries.filter(e => {
+                const nums = e.numbers;
+                return nums.slice().sort().join(",") === WINNING_NUMBERS.slice().sort().join(",");
+            });
+
+            const winnerNames = winners.length ? winners.map(w => w.name).join(", ") : "없음";
+
+            statusBox.innerHTML = `
+            <h2>🎉 추첨 완료</h2>
+            <p style="font-size:1.5rem;">당첨자 : <strong>${winnerNames}</strong></p>
+            <p style="font-size:1.5rem;">당첨 번호 : <strong>${WINNING_NUMBERS.join(" ")}</strong></p>
+            <p style="font-size:0.9rem; margin-top:0.5rem;">참여인원수 : ${entries.length}명</p>
+        `;
+        }
+
+        function initCountdown() {
+            const now = new Date();
+            let diff = drawTime.getTime() - now.getTime();
+
+            if (diff <= 0) {
+                showWinner();
+                return;
+            }
+
+            updateCountdown(diff);
+            timer = setInterval(() => {
+                diff = drawTime.getTime() - new Date().getTime();
+                updateCountdown(diff);
+            }, 1000);
+        }
+
+        initCountdown();
+
+        // 참여 버튼
+        submitBtn?.addEventListener("click", async () => {
+            const name = document.getElementById("name").value.trim();
+            const studentId = document.getElementById("studentId").value.trim();
+            const numbers = Array.from(document.querySelectorAll(".number-box"), i => Number(i.value));
+
+            if (!name || !studentId) return alert("이름과 학번을 입력하세요");
+            if (numbers.length !== 6 || numbers.some(n => n < 1 || n > 10 || !Number.isInteger(n)))
+                return alert("번호는 1~10 숫자 6개입니다");
+
+            try {
+                const res = await fetch("/api/lotto/entry", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ name, studentId, numbers }),
+                });
+                alert(await res.text());
+            } catch (err) {
+                console.error(err);
+            }
+        });
+    });
+</script>
