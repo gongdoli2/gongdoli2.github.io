@@ -254,3 +254,74 @@ body {
     border-radius: 8px;
     margin-top: 5px;
 }
+
+/* 페이지 제목 */
+.page-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #a291ff;
+    margin-bottom: 2rem;
+    text-shadow: 0 0 10px rgba(162, 145, 255, 0.3);
+}
+
+/* 리스트 컨테이너를 카드 스타일로 */
+#list-container {
+    width: 100%;
+    max-width: 600px;
+    background-color: #2a2448;
+    border-radius: 20px;
+    padding: 1.5rem;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+}
+
+/* 테이블 스타일링 */
+#lotto-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 10px; /* 행 사이 간격 */
+}
+
+#lotto-table th {
+    color: #cfcfff;
+    font-weight: 600;
+    padding: 1rem;
+    border-bottom: 2px solid rgba(162, 145, 255, 0.2);
+}
+
+#lotto-table td {
+    background-color: #3a2f5c;
+    padding: 1rem;
+    text-align: center;
+    color: #fff;
+}
+
+/* 테이블 행 둥글게 처리 */
+#lotto-table td:first-child {
+    border-radius: 12px 0 0 12px;
+}
+#lotto-table td:last-child {
+    border-radius: 0 12px 12px 0;
+}
+
+/* 번호 스타일 (강조) */
+.numbers {
+    color: #ffca28 !important; /* 노란색 포인트 */
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+/* 로딩/메시지 텍스트 */
+#loading-text {
+    text-align: center;
+    color: #a291ff;
+    padding: 2rem;
+    font-weight: 600;
+}
+
+/* 하단 바닥글 (요청하신 스타일 적용) */
+.footer-note-simple {
+    margin-top: 3rem;
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.3);
+    text-align: center;
+}
